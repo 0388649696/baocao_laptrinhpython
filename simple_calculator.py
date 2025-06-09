@@ -1,112 +1,104 @@
 import tkinter as tk
 from tkinter import messagebox
 
-class MayTinh:
-    """
-    Lớp MayTinh quản lý toàn bộ giao diện và logic của ứng dụng máy tính đơn giản.
-    """
+class MayTinh: 
+    # Lớp MayTinh quản lý toàn bộ giao diện và logic của ứng dụng máy tính đơn giản.
     def __init__(self, master):
-        """
-        Khởi tạo cửa sổ chính và các thành phần GUI.
-        master: đối tượng cửa sổ Tkinter gốc (root).
-        """
-        self.master = master # Lưu trữ đối tượng cửa sổ chính
-        master.title("Máy tính") # Đặt tiêu đề cửa sổ
-        master.geometry("300x330") # Đặt kích thước cửa sổ
-        master.resizable(False, False) # Không cho phép thay đổi kích thước cửa sổ
+
+        # Khởi tạo cửa sổ chính và các thành phần GUI.
+        # master: đối tượng cửa sổ Tkinter gốc (root).
+        self.goc = master # gốc Lưu trữ đối tượng cửa sổ chính 
+        self.goc.title("May Tinh") 
+        self.goc.geometry("300x330") 
+        self.goc.resizable(False, False) # Không cho phép thay đổi kích thước cửa sổ
+        self.goc.configure(bg="#30e8db") # Đặt màu nền cho cửa sổ chính
 
         # Cấu hình các cột để chúng giãn nở đều khi cửa sổ được thay đổi kích thước
-        master.grid_columnconfigure(0, weight=1) #
-        master.grid_columnconfigure(1, weight=1) #
+        self.goc.grid_columnconfigure(0, weight=1) #
+        self.goc.grid_columnconfigure(1, weight=1) #
 
         # --- Tạo và sắp xếp các thành phần GUI bằng Grid ---
 
         # Hàng 0: Label "Số thứ nhất" và Entry nhập số thứ nhất
-        tk.Label(master, text="Số thứ nhất:").grid(row=0, column=0, padx=5, pady=5, sticky="w") #
-        self.entry_num1 = tk.Entry(master, width=20) #
-        self.entry_num1.grid(row=0, column=1, padx=5, pady=5, sticky="ew") #
+        tk.Label(self.goc, text="So thu nhat:").grid(row=0, column=0, padx=5, pady=5, sticky="w") #
+        self.so1 = tk.Entry(self.goc, width=20) 
+        self.so1.grid(row=0, column=1, padx=5, pady=5, sticky="ew") #
 
         # Hàng 1: Label "Số thứ hai" và Entry nhập số thứ hai
-        tk.Label(master, text="Số thứ hai:").grid(row=1, column=0, padx=5, pady=5, sticky="w") #
-        self.entry_num2 = tk.Entry(master, width=20) #
-        self.entry_num2.grid(row=1, column=1, padx=5, pady=5, sticky="ew") #
+        tk.Label(self.goc, text="So thu hai:").grid(row=1, column=0, padx=5, pady=5, sticky="w") #
+        self.so2 = tk.Entry(self.goc, width=20) 
+        self.so2.grid(row=1, column=1, padx=5, pady=5, sticky="ew") #
 
-        # Hàng 2 & 3: Các Radiobutton để chọn phép toán
-        self.operation_var = tk.StringVar(value="+") # Giá trị mặc định là '+'
+         # Hàng 2 & 3: Các Radiobutton để chọn phép toán
+        self.phep_toan = tk.StringVar(value="+") # phep_toan thay cho operation_var
 
-        tk.Radiobutton(master, text="Cộng (+)", variable=self.operation_var, value="+").grid(row=2, column=0, padx=5, pady=2, sticky="w") #
-        tk.Radiobutton(master, text="Trừ (-)", variable=self.operation_var, value="-").grid(row=2, column=1, padx=5, pady=2, sticky="w") #
-        tk.Radiobutton(master, text="Nhân (×)", variable=self.operation_var, value="*").grid(row=3, column=0, padx=5, pady=2, sticky="w") #
-        tk.Radiobutton(master, text="Chia (÷)", variable=self.operation_var, value="/").grid(row=3, column=1, padx=5, pady=2, sticky="w") #
+        tk.Radiobutton(self.goc, text="Cong (+)", variable=self.phep_toan, value="+").grid(row=2, column=0, padx=5, pady=2, sticky="w") 
+        tk.Radiobutton(self.goc, text="Tru (-)", variable=self.phep_toan, value="-").grid(row=2, column=1, padx=5, pady=2, sticky="w") 
+        tk.Radiobutton(self.goc, text="Nhan (x)", variable=self.phep_toan, value="*").grid(row=3, column=0, padx=5, pady=2, sticky="w") 
+        tk.Radiobutton(self.goc, text="Chia (:)", variable=self.phep_toan, value="/").grid(row=3, column=1, padx=5, pady=2, sticky="w") 
 
         # Hàng 4: Nút "Tính"
-        self.button_calculate = tk.Button(master, text="Tính", command=self.calculate, width=15, height=2) #
-        self.button_calculate.grid(row=4, column=0, columnspan=2, padx=5, pady=10, sticky="ew") #
-
+        tk.Button(self.goc, text="Tinh", command=self.tinh, width=15, height=2).grid(row=4, column=0, columnspan=2, padx=5, pady=10, sticky="ew") 
+        
         # Hàng 5: Nút "Reset"
-        self.button_reset = tk.Button(master, text="Reset", command=self.reset_fields, width=15, height=2) #
-        self.button_reset.grid(row=5, column=0, columnspan=2, padx=5, pady=5, sticky="ew") #
+        tk.Button(self.goc, text="Reset", command=self.dat_lai, width=15, height=2).grid(row=5, column=0, columnspan=2, padx=5, pady=5, sticky="ew") 
 
         # Hàng 6: Label hiển thị kết quả
-        self.label_result = tk.Label(master, text="Kết quả", font=("Helvetica", 12, "bold"), fg="blue", bg="lightgray", padx=10, pady=10) #
-        self.label_result.grid(row=6, column=0, columnspan=2, padx=5, pady=10, sticky="ew") #
+        self.ket_qua = tk.Label(self.goc, text="Ket qua", font=("Helvetica", 12, "bold"), fg="blue", bg="lightgray", padx=10, pady=10) 
+        self.ket_qua.grid(row=6, column=0, columnspan=2, padx=5, pady=10, sticky="ew") #
 
-    def calculate(self):
-        """
-        Đọc giá trị từ các ô nhập liệu, thực hiện phép toán đã chọn
-        và hiển thị kết quả trên Label. Bắt các lỗi ValueError và ZeroDivisionError.
-        """
+    def tinh(self): 
+        # Đọc giá trị từ các ô nhập liệu, thực hiện phép toán đã chọn
+        # và hiển thị kết quả trên Label. Bắt các lỗi ValueError và ZeroDivisionError
         try:
-            num1_str = self.entry_num1.get() #
-            num2_str = self.entry_num2.get() #
+            so1_str = self.so1.get() 
+            so2_str = self.so2.get() 
 
-            if not num1_str or not num2_str: #
-                messagebox.showerror("Lỗi", "Vui lòng nhập đầy đủ cả hai số.") #
+            if not so1_str or not so2_str: 
+                messagebox.showerror("Loi", "Vui long nhap day du ca hai so.") #
                 return
 
-            num1 = float(num1_str) #
-            num2 = float(num2_str) #
-            operation = self.operation_var.get() #
+            num1 = float(so1_str) #
+            num2 = float(so2_str) #
+            phep = self.phep_toan.get() # Phép toán (operation_var)
 
-            result = 0
-            if operation == "+": #
-                result = num1 + num2 #
-            elif operation == "-": #
-                result = num1 - num2 #
-            elif operation == "*": #
-                result = num1 * num2 #
-            elif operation == "/": #
-                if num2 == 0: #
-                    raise ZeroDivisionError("Không thể chia cho số 0!") #
-                result = num1 / num2 #
+            kq = 0 # kết quả 
+            if phep == "+": #
+                kq = num1 + num2 
+            elif phep == "-": #
+                kq = num1 - num2 
+            elif phep == "*": #
+                kq = num1 * num2 
+            elif phep == "/": 
+                if num2 == 0: 
+                    raise ZeroDivisionError("Khong the chia cho so 0!") 
+                kq = num1 / num2 
             else:
-                messagebox.showerror("Lỗi", "Vui lòng chọn một phép toán.") #
+                messagebox.showerror("Loi", "Vui long chon mot phep toan.") 
                 return
 
-            self.label_result.config(text=f"Kết quả = {result}") #
+            self.ket_qua.config(text=f"Ket qua = {kq}") 
 
-        except ValueError: #
-            messagebox.showerror("Lỗi", "Vui lòng nhập số hợp lệ.") #
-            self.label_result.config(text="Kết quả: Lỗi nhập liệu!") #
-        except ZeroDivisionError as e: #
-            messagebox.showerror("Lỗi", str(e)) #
-            self.label_result.config(text="Kết quả: Lỗi chia 0!") #
+        except ValueError: 
+            messagebox.showerror("Loi", "Vui long nhap so hop le.") 
+            self.ket_qua.config(text="Ket qua: Loi nhap lieu!") 
+        except ZeroDivisionError as e: 
+            messagebox.showerror("Loi", str(e)) 
+            self.ket_qua.config(text="Ket qua: Loi chia 0!") 
 
 
-    def reset_fields(self):
-        """
-        Xóa nội dung của cả hai ô nhập liệu và đặt lại nhãn kết quả.
-        """
-        self.entry_num1.delete(0, tk.END) #
-        self.entry_num2.delete(0, tk.END) #
-        self.label_result.config(text="Kết quả") #
-        self.operation_var.set("+") #
+    def dat_lai(self): # dat_lai thay cho reset_fields
+        # Xóa nội dung của cả hai ô nhập liệu và đặt lại nhãn kết quả.
+        self.so1.delete(0, tk.END) 
+        self.so2.delete(0, tk.END) 
+        self.ket_qua.config(text="Ket qua") 
+        self.phep_toan.set("+") 
 
 # Khởi tạo cửa sổ Tkinter gốc
-root = tk.Tk()
+cua_so_goc = tk.Tk() # cua_so_goc thay cho root
 
 # Tạo một thể hiện của lớp MayTinh, truyền cửa sổ gốc vào
-my_calculator = MayTinh(root)
+may_tinh_cua_toi = MayTinh(cua_so_goc)  
 
 # Chạy vòng lặp sự kiện chính của Tkinter
-root.mainloop() #
+cua_so_goc.mainloop() #
