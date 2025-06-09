@@ -14,23 +14,23 @@ class MayTinh:
         self.goc.configure(bg="#30e8db") # Đặt màu nền cho cửa sổ chính
 
         # Cấu hình các cột để chúng giãn nở đều khi cửa sổ được thay đổi kích thước
-        self.goc.grid_columnconfigure(0, weight=1) #
-        self.goc.grid_columnconfigure(1, weight=1) #
+        self.goc.grid_columnconfigure(0, weight=1) 
+        self.goc.grid_columnconfigure(1, weight=1) 
 
         # --- Tạo và sắp xếp các thành phần GUI bằng Grid ---
 
         # Hàng 0: Label "Số thứ nhất" và Entry nhập số thứ nhất
         tk.Label(self.goc, text="So thu nhat:").grid(row=0, column=0, padx=5, pady=5, sticky="w") #
         self.so1 = tk.Entry(self.goc, width=20) 
-        self.so1.grid(row=0, column=1, padx=5, pady=5, sticky="ew") #
+        self.so1.grid(row=0, column=1, padx=5, pady=5, sticky="ew") 
 
         # Hàng 1: Label "Số thứ hai" và Entry nhập số thứ hai
         tk.Label(self.goc, text="So thu hai:").grid(row=1, column=0, padx=5, pady=5, sticky="w") #
         self.so2 = tk.Entry(self.goc, width=20) 
-        self.so2.grid(row=1, column=1, padx=5, pady=5, sticky="ew") #
+        self.so2.grid(row=1, column=1, padx=5, pady=5, sticky="ew") 
 
          # Hàng 2 & 3: Các Radiobutton để chọn phép toán
-        self.phep_toan = tk.StringVar(value="+") # phep_toan thay cho operation_var
+        self.phep_toan = tk.StringVar(value="+") 
 
         tk.Radiobutton(self.goc, text="Cong (+)", variable=self.phep_toan, value="+").grid(row=2, column=0, padx=5, pady=2, sticky="w") 
         tk.Radiobutton(self.goc, text="Tru (-)", variable=self.phep_toan, value="-").grid(row=2, column=1, padx=5, pady=2, sticky="w") 
@@ -63,11 +63,11 @@ class MayTinh:
             phep = self.phep_toan.get() # Phép toán (operation_var)
 
             kq = 0 # kết quả 
-            if phep == "+": #
+            if phep == "+": 
                 kq = num1 + num2 
-            elif phep == "-": #
+            elif phep == "-": 
                 kq = num1 - num2 
-            elif phep == "*": #
+            elif phep == "*": 
                 kq = num1 * num2 
             elif phep == "/": 
                 if num2 == 0: 
@@ -87,7 +87,7 @@ class MayTinh:
             self.ket_qua.config(text="Ket qua: Loi chia 0!") 
 
 
-    def dat_lai(self): # dat_lai thay cho reset_fields
+    def dat_lai(self):  
         # Xóa nội dung của cả hai ô nhập liệu và đặt lại nhãn kết quả.
         self.so1.delete(0, tk.END) 
         self.so2.delete(0, tk.END) 
@@ -95,7 +95,7 @@ class MayTinh:
         self.phep_toan.set("+") 
 
 # Khởi tạo cửa sổ Tkinter gốc
-cua_so_goc = tk.Tk() # cua_so_goc thay cho root
+cua_so_goc = tk.Tk() 
 
 # Tạo một thể hiện của lớp MayTinh, truyền cửa sổ gốc vào
 may_tinh_cua_toi = MayTinh(cua_so_goc)  
